@@ -1,8 +1,24 @@
 import React from 'react'
 import { TextField, CssBaseline, Button, Box, Container, Link, Avatar, Typography } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { changeEmail, changePassword } from '../redux/authSlice';
+import { useSelector, useDispatch } from "react-redux"
 
 function SignIn() {
+
+    const email = useSelector(state => state.auth.email);
+    const password = useSelector(state => state.auth.password);
+
+    const dispatch = useDispatch()
+
+    const handleEmailChange = (e) => {
+        dispatch(changeEmail(e.currentTarget.value))
+    };
+
+    const handlePasswordChange = (e) => {
+        dispatch(changePassword(e.currentTarget.value))
+    };
+
     return (
         <>
             <CssBaseline />
@@ -19,6 +35,9 @@ function SignIn() {
                         autoComplete='email'
                         label="Email"
                         autoFocus
+                        value={email}
+                        onChange={handleEmailChange}
+
                     />
                     <TextField
                         margin='normal'
@@ -26,6 +45,8 @@ function SignIn() {
                         required
                         label="Password"
                         type='password'
+                        value={password}
+                        onChange={handlePasswordChange}
                     />
                     <Button
                         type='submit'

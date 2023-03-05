@@ -1,8 +1,31 @@
 import React from 'react'
 import { TextField, CssBaseline, Button, Box, Container, Link, Avatar, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import { useSelector, useDispatch } from "react-redux";
+import { changeName, changeEmail, changePassword } from '../redux/authSlice';
+
 
 function SignUp() {
+
+    const name = useSelector(state => state.auth.name);
+    const email = useSelector(state => state.auth.email);
+    const password = useSelector(state => state.auth.password);
+
+    const dispatch = useDispatch()
+
+    const handleNameChange = (e) => {
+        dispatch(changeName(e.currentTarget.value))
+    };
+
+    const handleEmailChange = (e) => {
+        dispatch(changeEmail(e.currentTarget.value))
+    };
+
+    const handlePasswordChange = (e) => {
+        dispatch(changePassword(e.currentTarget.value))
+    };
+
+
     return (
         <>
             <CssBaseline />
@@ -20,6 +43,8 @@ function SignUp() {
                         required
                         autoComplete='name'
                         autoFocus
+                        value={name}
+                        onChange={handleNameChange}
                     />
 
                     <TextField
@@ -28,6 +53,8 @@ function SignUp() {
                         required
                         autoComplete='email'
                         label="Email"
+                        value={email}
+                        onChange={handleEmailChange}
 
                     />
 
@@ -37,6 +64,8 @@ function SignUp() {
                         required
                         label="Password"
                         type='password'
+                        value={password}
+                        onChange={handlePasswordChange}
                     />
 
                     <Button
