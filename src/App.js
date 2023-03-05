@@ -1,24 +1,10 @@
-import { useEffect } from "react";
-
-import { signUp, signIn } from "./config/firebase";
+import Router from "./config/Router";
 
 function App() {
 
-  useEffect(() => {
-    signIn("oguz@oguz.com", "123456").then(() => {
-      console.log("Done")
-    }).catch((e) => { console.log(e) })
-  }, []);
 
 
-
-
-
-  return (
-    <div >
-      <h1>Dent Calendar</h1>
-    </div>
-  );
+  return <Router />
 }
 
 export default App;
