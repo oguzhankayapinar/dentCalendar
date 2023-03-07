@@ -10,7 +10,6 @@ export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-
                 <Route element={<Layout />}>
                     <Route path="/" element={<Home />} />
                 </Route>
