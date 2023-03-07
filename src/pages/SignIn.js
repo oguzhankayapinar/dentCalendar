@@ -1,13 +1,16 @@
 import React from 'react'
 import { TextField, CssBaseline, Button, Box, Container, Link, Avatar, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { changeEmail, changePassword } from '../redux/authSlice';
+import { changeEmail, changePassword, LogIn, } from '../redux/authSlice';
 import { useSelector, useDispatch } from "react-redux"
 
 function SignIn() {
 
     const email = useSelector(state => state.auth.email);
     const password = useSelector(state => state.auth.password);
+    const error = useSelector(state => state.auth.error);
+    const isLoading = useSelector(state => state.auth.isLoading);
+
 
     const dispatch = useDispatch()
 
@@ -19,15 +22,21 @@ function SignIn() {
         dispatch(changePassword(e.currentTarget.value))
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(LogIn({ email, password }))
+    }
+
     return (
         <>
             <CssBaseline />
             <Container maxWidth="xs">
-                <Box component="form" sx={{ mt: 8 }} >
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 8 }} >
                     <Avatar sx={{ mx: "auto", bgcolor: "primary.main" }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant='h4' sx={{ textAlign: "center" }}> Sign In </Typography>
+                    {error && (<Typography sx={{ textAlign: "center", color: "error.main" }}> {error} </Typography>)}
                     <TextField
                         margin='normal'
                         fullWidth
@@ -52,8 +61,10 @@ function SignIn() {
                         type='submit'
                         variant='contained'
                         fullWidth
+                        disabled={isLoading}
                         sx={{ mt: 2 }}
-                    >Sign in
+                    >
+                        {isLoading ? "Loading..." : "Sign in"}
                     </Button>
                     <Box sx={{
                         display: "flex",

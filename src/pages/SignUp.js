@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, CssBaseline, Button, Box, Container, Link, Avatar, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { useSelector, useDispatch } from "react-redux";
-import { changeName, changeEmail, changePassword } from '../redux/authSlice';
+import { changeName, changeEmail, changePassword, register } from '../redux/authSlice';
 
 
 function SignUp() {
@@ -10,6 +10,8 @@ function SignUp() {
     const name = useSelector(state => state.auth.name);
     const email = useSelector(state => state.auth.email);
     const password = useSelector(state => state.auth.password);
+    const isLoading = useSelector(state => state.auth.isLoading);
+    const error = useSelector(state => state.auth.error);
 
     const dispatch = useDispatch()
 
@@ -25,17 +27,21 @@ function SignUp() {
         dispatch(changePassword(e.currentTarget.value))
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(register({ name, email, password }))
+    };
 
     return (
         <>
             <CssBaseline />
             <Container maxWidth="xs">
-                <Box component="form" sx={{ mt: 8 }} >
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 8 }} >
                     <Avatar sx={{ mx: "auto", bgcolor: "primary.main" }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant='h4' sx={{ textAlign: "center" }}> Sign Up </Typography>
-
+                    {error && (<Typography sx={{ textAlign: "center", color: "error.main" }}> {error} </Typography>)}
                     <TextField
                         fullWidth
                         margin='normal'
@@ -73,7 +79,10 @@ function SignUp() {
                         variant='contained'
                         fullWidth
                         sx={{ mt: 2 }}
-                    >Sign Up
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Loading ..." : "Sign Up"}
+
                     </Button>
 
                     <Box sx={{

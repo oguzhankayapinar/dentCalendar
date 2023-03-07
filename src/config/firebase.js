@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import {
     getAuth,
-    createUserWithEmailAndPassword,
-    updateCurrentUser,
-    signInWithEmailAndPassword
+    // createUserWithEmailAndPassword,
+    // updateCurrentUser,
+    // signInWithEmailAndPassword
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -21,13 +21,13 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 
-export const signUp = async (name, email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password)
-    await updateCurrentUser(auth, { displayName: name })
+// export const signUp = async (name, email, password) => {
+//     await createUserWithEmailAndPassword(auth, email, password)
+//     await updateCurrentUser(auth, { displayName: name })
 
-};
+// };
 
-export const signIn = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password)
-};
+// export const signIn = async (email, password) => {
+//     await signInWithEmailAndPassword(auth, email, password)
+// };
 

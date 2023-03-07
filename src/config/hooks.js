@@ -3,16 +3,15 @@ import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 
-const useIsLoggedIn = () => {
-
+export default function useIsLoggedIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(null);
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            setIsLoggedIn(!!user)
-        })
+        return onAuthStateChanged(auth, (user) => {
+            console.log(user)
+            setIsLoggedIn(!!user);
+        });
     }, []);
-    return isLoggedIn
-}
 
-export default useIsLoggedIn;
+    return isLoggedIn;
+};

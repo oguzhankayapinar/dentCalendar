@@ -8,8 +8,6 @@ export default function AuthLayout() {
     if (isLoggedIn === null) return <h1>Loading </h1>
     else if (isLoggedIn === true) return <Navigate replace to="/" />
 
-    return (
-        <Outlet />
+    return <Outlet />
 
-    )
 }
