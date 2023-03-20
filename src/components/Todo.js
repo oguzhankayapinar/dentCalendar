@@ -1,8 +1,14 @@
+import { deleteDoc, doc } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
+import { db } from '../config/firebase'
 
 function Todo({ todo }) {
     const [hover, setHover] = useState(false)
+
+    const deleteTodo = async (todo) => {
+        const result = await deleteDoc(doc(db, "todos", todo.id))
+    }
 
     return (
         <div className='Todo'>
@@ -36,7 +42,9 @@ function Todo({ todo }) {
                         </span>
                     }
                 </div>
-                <div className="delete-todo">
+                <div
+                    onClick={() => deleteTodo(todo)}
+                    className="delete-todo">
                     {
                         (hover || todo.checked) &&
                         <span>
