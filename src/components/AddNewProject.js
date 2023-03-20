@@ -3,6 +3,8 @@ import { Plus } from "react-bootstrap-icons";
 import Modal from "./Modal";
 import ProjectForm from "./ProjectForm";
 
+
+
 function AddNewProject() {
     const [showModal, setShowModal] = useState(false)
     const [projectName, setProjectName] = useState("")

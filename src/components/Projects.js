@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { CaretUp, Palette, PencilFill, } from "react-bootstrap-icons"
+import { TodoContext } from "../context"
 import AddNewProject from "./AddNewProject"
 import Project from "./Project"
 
@@ -9,11 +10,9 @@ function Projects() {
     const [edit, setEdit] = useState(false)
     const pencilColor = edit ? "#1EC94C" : "#000000"
 
-    const projects = [
-        { id: 1, name: "personal", numOfTodos: 0 },
-        { id: 2, name: "work", numOfTodos: 1 },
-        { id: 3, name: "other", numOfTodos: 2 }
-    ]
+    //Context 
+    const { projects } = useContext(TodoContext)
+    console.log(projects)
 
     return (
         <div className="Projects">
@@ -24,7 +23,8 @@ function Projects() {
                 </div>
 
                 <div className="btns">
-                    {showMenu && projects.length > 0 &&
+                    {
+                        showMenu && projects.length > 0 &&
                         <span className="edit" onClick={() => setEdit(edit => !edit)}>
                             <PencilFill size="14" color={pencilColor} />
                         </span>
