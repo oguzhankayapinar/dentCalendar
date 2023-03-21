@@ -1,4 +1,5 @@
-import { deleteDoc, doc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import moment from 'moment'
 import React, { useState } from 'react'
 import { ArrowClockwise, CheckCircleFill, Circle, Trash } from 'react-bootstrap-icons'
 import { db } from '../config/firebase'
@@ -9,6 +10,29 @@ function Todo({ todo }) {
     const deleteTodo = async (todo) => {
         const result = await deleteDoc(doc(db, "todos", todo.id))
     }
+    const checkTodo = async (todo) => {
+        const result = await updateDoc(doc(db, "todos", todo.id),
+            {
+                checked: !todo.checked
+            }
+        )
+    }
+
+    const repeatNextToday = async () => {
+        const nextDayDate = await moment(todo.date, 'MM/DD/YYYY').add(1, 'days')
+
+        const repeatedTodo = {
+            ...todo,
+            checked: false,
+            date: nextDayDate.format('MM/DD/YYYY'),
+            day: nextDayDate.format('d')
+        }
+
+        delete repeatedTodo.id
+
+        addDoc(collection(db, "todos"), repeatedTodo)
+
+    }
 
     return (
         <div className='Todo'>
@@ -17,7 +41,10 @@ function Todo({ todo }) {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
-                <div className="check-todo">
+                <div
+                    className="check-todo"
+                    onClick={() => checkTodo(todo)}
+                >
                     {
                         todo.checked ?
                             <span className="checked">
@@ -34,7 +61,10 @@ function Todo({ todo }) {
                     <span> {todo.time} - {todo.projectName}</span>
                     <div className={`line ${todo.checked ? 'line-through' : ''}`}></div>
                 </div>
-                <div className="add-to-next-day">
+                <div
+                    className="add-to-next-day"
+                    onClick={() => repeatNextToday(todo)}
+                >
                     {
                         todo.checked &&
                         <span>
