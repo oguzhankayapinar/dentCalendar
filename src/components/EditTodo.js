@@ -1,9 +1,10 @@
 import { doc, updateDoc } from "firebase/firestore"
 import moment from "moment"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { db } from "../config/firebase"
 import { TodoContext } from "../context"
 import TodoForm from "./TodoForm"
+import { X } from 'react-bootstrap-icons'
 
 function EditTodo() {
     //State
@@ -15,6 +16,12 @@ function EditTodo() {
 
     //Context
     const { selectedTodo, projects } = useContext(TodoContext)
+
+    const { setSelectedTodo } = useContext(TodoContext)
+
+    //Ref
+    const editRef = useRef()
+
 
     useEffect(() => {
         if (selectedTodo) {
@@ -43,8 +50,21 @@ function EditTodo() {
 
     }
 
+
+    useEffect(() => {
+        document.addEventListener('click', handleClick)
+
+        return () => document.removeEventListener('click', handleClick)
+    })
+
+    const handleClick = e => {
+        if (e.target === editRef.current || editRef.current.contains(e.target)) {
+            setSelectedTodo(undefined)
+        }
+    }
+
     return (
-        <div>
+        <div  >
             {selectedTodo &&
                 <div className="EditTodo" >
                     <div className="header">
@@ -63,10 +83,19 @@ function EditTodo() {
                             projects={projects}
                             todoProject={todoProject}
                             setTodoProject={setTodoProject}
+
+
                         />
                     </div>
+
+                    <div className='editRef'
+                        ref={editRef} >
+                        <X size='23' />
+                    </div>
+
                 </div>
             }
+
         </div>
     )
 }
