@@ -24,7 +24,7 @@ function Projects() {
 
                 <div className="btns">
                     {
-                        showMenu && projects.length > 0 &&
+                        showMenu &&
                         <span className="edit" onClick={() => setEdit(edit => !edit)}>
                             <PencilFill size="14" color={pencilColor} />
                         </span>

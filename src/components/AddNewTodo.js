@@ -22,7 +22,7 @@ function AddNewTodo() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        if (text && !calendarItems.includes(todoProject)) {
+        if (text) {
             const result = addDoc(collection(db, "todos"),
                 {
                     text: text,
@@ -31,7 +31,7 @@ function AddNewTodo() {
                     time: moment(time).format('hh:mm A'),
                     checked: false,
                     color: randomcolor(),
-                    projectName: todoProject
+                    // projectName: todoProject
                 }
             )
 
@@ -63,11 +63,12 @@ function AddNewTodo() {
                     setDay={setDay}
                     time={time}
                     setTime={setTime}
-                    projects={projects}
+                    // projects={projects}
                     showButtons={true}
                     setShowModal={setShowModal}
                     todoProject={todoProject}
                     setTodoProject={setTodoProject}
+
                 />
             </Modal>
         </div>

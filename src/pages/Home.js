@@ -12,9 +12,9 @@ const Home = () => {
     return (
         <div className='Home'>
             <Sidebar>
-                <AddNewTodo />
                 <Calendar />
-                <Projects />
+                <AddNewTodo />
+                {/* <Projects /> */}
             </Sidebar>
             <Main>
                 <Todos />

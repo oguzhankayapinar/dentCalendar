@@ -8,6 +8,7 @@ function Calendar() {
     //Context
     const { setSelectedProject } = useContext(TodoContext)
 
+
     return (
         <div className="Calendar">
             <div className="header">

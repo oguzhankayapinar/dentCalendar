@@ -6,10 +6,9 @@ import RenameProject from "./RenameProject"
 
 function Project({ project, edit }) {
     //Context
-    const { setSelectedProject } = useContext(TodoContext)
+    const { defaultProject, selectedProject, setSelectedProject } = useContext(TodoContext)
+
     //State
-
-
     const [showModal, setShowModal] = useState(false)
 
     return (

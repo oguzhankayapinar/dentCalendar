@@ -3,7 +3,6 @@ import { Bell, CalendarDay, Clock, Palette, X } from 'react-bootstrap-icons'
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-
 function TodoForm({
     handleSubmit,
     heading = false,
@@ -55,29 +54,25 @@ function TodoForm({
                         onChange={time => setTime(time)}
                     />
                 </div>
-                <div className="pick-project">
+                {/* <div className="pick-project">
                     <div className="title">
                         <Palette />
                         <p>Choose a project</p>
                     </div>
                     <div className="projects">
                         {
-                            projects.length > 0 ?
-                                projects.map(project =>
-                                    <div
-                                        onClick={() => setTodoProject(project.name)}
-                                        className={`project ${todoProject === project.name ? "active" : ""}`}
-                                        key={project.id}>
-                                        {project.name}
-                                    </div>
-                                )
-                                :
-                                <div style={{ color: '#ff0000' }}>
-                                    Please add a project before proceeding
+                            projects.map(project =>
+                                <div
+                                    onClick={() => setTodoProject(project.name)}
+                                    className={`project ${todoProject === project.name ? "active" : ""}`}
+                                    key={project.id}>
+                                    {project.name}
                                 </div>
+                            )
+
                         }
                     </div>
-                </div>
+                </div> */}
                 {
                     showButtons &&
                     <div>
